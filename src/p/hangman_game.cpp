@@ -28,11 +28,12 @@ void display(const string& word, const vector<bool>& guessed) {
 int main() {
     int setting = 0; // 설정을 위한 변수
     int difficulty = 0; // 난이도 선택을 위한 변수
-    int maxAttempts = 0; // 최대 횟수
+    int maxAttempts = 0; // 최대 횟수 저장을 위한 변수
     string word = ""; // 단어 저장을 위한 변수
 
-    // 설정에 따른 단어 설정
+    // 설정에 따른 단어 저장
     while (true) {
+        // 설정 안내
         cout << "설정 : 1. 혼자(저장되어있는 단어가 랜덤으로 선택됩니다.) 2. 같이(상대방이 맞출 단어를 직접 입력합니다.) : ";
         cin >> setting;
 
@@ -52,6 +53,7 @@ int main() {
 
     // 난이도 설정
     while (true) {
+        // 난이도 안내
         cout << "\n난이도 선택 : 1.쉬움(기회: 8) Easy 2.보통(기회: 7) 3.어려움(기회: 6) : ";
         cin >> difficulty;
 
@@ -91,7 +93,7 @@ int main() {
         cout << endl;
 
         // 입력 안내 및 입력 받기
-        char guess;
+        char guess; //글자 확인을 위한 변수
         cout << "글자를 입력하세요: ";
         cin >> guess;
 
@@ -114,7 +116,7 @@ int main() {
             continue;
         }
 
-        bool correctGuess = false;
+        bool correctGuess = false; //맟췄는지 확인하기 위한 변수
 
         // 입력한 글자가 단어에 있는지 확인
         for (size_t i = 0; i < word.length(); ++i) {
@@ -139,14 +141,14 @@ int main() {
         
         // 승리 메시지 출력
         if (allGuessed) {
-            cout << "축하합니다. 단어 (" << word << ")를 맞췄습니다." << endl;
+            cout << "\n축하합니다. 단어(" << word << ")를 맞췄습니다." << endl;
             break;
         }
 
         cout << "\n";
     }
 
-    // 패배 메시지 출력
+    // 실패 메시지 출력
     if (wrongGuesses >= maxAttempts) {
         cout << "기회를 모두 사용했습니다. 맞출 단어는 " << word << " 이었습니다." << endl;
     }
