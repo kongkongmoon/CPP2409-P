@@ -5,11 +5,17 @@
 #include <string>
 using namespace std;
 
-// 임의의 단어를 반환하는 함수
-string GetRandomWord() {
-    vector<string> words = {"apple", "banana", "cherry", "grape", "orange"};
+// 단어와 뜻 리스트 생성
+void GetWordAndHints(vector<string>& words, vector<string>& hints) {
+    words = {"apple", "banana", "cherry", "grape", "orange"};
+    hints = {"사과", "바나나", "체리", "포도", "오렌지"};
+}
+
+// 임의의 단어와 뜻을 반환하는 함수
+pair<string, string> GetRandomWord(const vector<string>& words, const vector<string>& hints) {
     srand(time(0));
-    return words[rand() % words.size()];
+    int index = rand() % words.size();
+    return {words[index], hints[index]}; // 단어와 뜻 반환
 }
 
 // 현재 상태를 출력하는 함수
@@ -30,6 +36,12 @@ int main() {
     string difficulty = "";
     int max_attempts = 0;
     string word = "";
+    string hint = "";
+
+    // 단어와 힌트를 저장할 리스트
+    vector<string> words;
+    vector<string> hints;
+    GetWordAndHints(words, hints);
 
     // 설정에 따른 단어 저장
     while (true) {
@@ -37,12 +49,16 @@ int main() {
         cin >> setting;
 
         if (setting == "1") {
-            word = GetRandomWord();
+            auto selectedWord = GetRandomWord(words, hints);
+            word = selectedWord.first;
+            hint = selectedWord.second;
             cout << "저장된 단어 중 하나를 랜덤으로 선택했습니다." << endl;
             break;
         } else if (setting == "2") {
             cout << "상대방이 맞출 단어를 입력해주세요:";
             cin >> word;
+            cout << "단어의 뜻을 입력하세요: ";
+            cin >> hint;
             cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" << endl;
             break;
         } else {
@@ -88,18 +104,24 @@ int main() {
         }
         cout << endl;
 
-        // 입력받기
         string input;
         char guess;
 
         while (true) {
-            cout << "글자를 입력하세요: ";
+            cout << "글자를 입력하세요 (힌트를 보려면 'hint' 입력): ";
             cin >> input;
 
-            if (input.length() != 1) {
+            if (input == "hint") {
+                if (max_attempts - wrong_guesses == 1) {
+                    cout << "힌트를 사용했습니다. 단어의 뜻: " << hint << endl;
+                } else {
+                    cout << "힌트는 남은 기회가 1일 때만 사용할 수 있습니다.\n";
+                }
+                continue; // 입력을 다시 요구
+            } else if (input.length() != 1) {
                 cout << "하나씩 입력해 주세요.\n";
             } else {
-                guess = input[0]; // 유효한 입력
+                guess = input[0];
                 break;
             }
         }
@@ -111,14 +133,12 @@ int main() {
                 break;
             }
         }
-
         for (char c : wrong_letters) {
             if (c == guess) {
                 already_guessed = true;
                 break;
             }
         }
-        
         if (already_guessed) {
             cout << "이미 입력한 글자입니다. 다시 입력하세요.\n" << endl;
             continue;
