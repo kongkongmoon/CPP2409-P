@@ -3,6 +3,8 @@
         "iostream": "cpp",
         "vector": "cpp",
         "xstring": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "hangman_game_test": "cpp",
+        "stdexcept": "cpp"
     }
 }

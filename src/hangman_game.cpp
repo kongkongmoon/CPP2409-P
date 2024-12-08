@@ -57,8 +57,6 @@ int main() {
         } else if (setting == "2") {
             cout << "상대방이 맞출 단어를 입력해주세요:";
             cin >> word;
-            cout << "단어의 뜻을 입력하세요: ";
-            cin >> hint;
             cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" << endl;
             break;
         } else {
@@ -112,7 +110,10 @@ int main() {
             cin >> input;
 
             if (input == "hint") {
-                if (max_attempts - wrong_guesses == 1) {
+                if(setting == "2") {
+                    cout << "setting에 2를 입력했을 때는 힌트를 사용할 수 없습니다." << endl;
+                }
+                else if (max_attempts - wrong_guesses == 1) {
                     cout << "힌트를 사용했습니다. 단어의 뜻: " << hint << endl;
                 } else {
                     cout << "힌트는 남은 기회가 1일 때만 사용할 수 있습니다.\n";
