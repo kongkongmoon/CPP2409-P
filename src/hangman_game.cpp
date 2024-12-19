@@ -109,7 +109,7 @@ public:
 
     // 힌트를 보여주는 함수
     void ShowHint() const {
-        cout << "힌트를 사용했습니다. 단어의 뜻: " << hint << "\n" << endl;
+        cout << "\n힌트를 사용했습니다. 단어의 뜻: " << hint << "\n" << endl;
     }
 
     // 게임 종료 여부 확인
@@ -154,13 +154,13 @@ int main() {
 
     // 설정 입력
     while (true) {
-        cout << "설정 : 1. 혼자(저장된 단어가 랜덤으로 선택됩니다.) 2. 같이(상대방이 맞출 단어를 직접 입력합니다.) : ";
+        cout << "설정 : 1. 혼자(저장된 단어가 랜덤으로 선택됩니다.)     2. 같이(상대방이 맞출 단어를 직접 입력합니다.) : ";
         cin >> setting;
 
         if (setting == "1" || setting == "2") {
             break;
         }
-        cout << "잘못된 입력입니다. 1 또는 2를 입력해주세요.\n\n";
+        cout << "\n잘못된 입력입니다. 1 또는 2를 입력해주세요.\n";
     }
 
     string word, hint;
@@ -171,12 +171,12 @@ int main() {
     } else {
         cout << "상대방이 맞출 단어를 입력해주세요: ";
         cin >> word;
-        cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+        cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"; //터미널 창에 따라서 변경해야 함
     }
 
     // 난이도 설정
     while (true) {
-        cout << "\n난이도 선택 : 1. 쉬움(기회: 8) 2. 보통(기회: 7) 3. 어려움(기회: 6) : ";
+        cout << "\n난이도 선택 : 1. 쉬움(기회: 8)   2. 보통(기회: 7)    3. 어려움(기회: 6) : ";
         cin >> difficulty;
 
         if (difficulty == "1") {
@@ -189,7 +189,7 @@ int main() {
             max_attempts = 6;
             break;
         }
-        cout << "잘못된 입력입니다. 1, 2 또는 3을 입력해주세요.\n";
+        cout << "\n잘못된 입력입니다. 1, 2 또는 3을 입력해주세요.";
     }
 
     HangmanGame game(word, hint, max_attempts);
@@ -205,23 +205,23 @@ int main() {
 
         if (input == "hint") {
             if (setting == "2") {
-                cout << "\nsetting이 2일 때는 힌트를 사용할 수 없습니다. \n\n";
+                cout << "\nsetting이 2일 때는 힌트를 사용할 수 없습니다. \n";
             } else if (game.GetRemainingAttempts() == 1) {
                 game.ShowHint();
             } else {
-                cout << "\n힌트는 남은 기회가 1일 때만 사용할 수 있습니다.\n\n";
+                cout << "\n힌트는 남은 기회가 1일 때만 사용할 수 있습니다.\n";
             }
             continue;
         }
 
         if (input.length() != 1) {
-            cout << "하나의 글자를 입력해 주세요.\n";
+            cout << "\n하나의 글자를 입력해 주세요.\n";
             continue;
         }
 
         char guess = input[0];
         if (!game.ProcessInput(guess)) {
-            cout << "틀렸습니다!\n";
+            cout << "\n틀렸습니다!\n";
         }
 
         if (game.IsWordGuessed()) {
